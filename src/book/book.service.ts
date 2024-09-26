@@ -51,12 +51,7 @@ export class BookService {
 	}
 
 	async getBookById(id: string): Promise<Book> {
-		console.log(`getBookById called with id: ${id}`);
-		const book = this.books.find((book) => book.id === id);
-		if (!book) {
-			console.log(`Book with id ${id} not found`);
-		}
-		return book;
+		return this.books.find((book) => book.id === id);
 	}
 
 	async createBook(book: Book): Promise<Book> {
