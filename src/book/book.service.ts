@@ -1,21 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
-
-export class Book {
-	id: string;
-
-	@ApiProperty()
-	title: string;
-
-	@ApiProperty()
-	description: string;
-
-	@ApiProperty()
-	author: string;
-
-	@ApiProperty()
-	publishedYear: number;
-}
+import { BookDto } from './dto/book.dto';
 
 @Injectable()
 export class BookService {
@@ -46,21 +30,21 @@ export class BookService {
 		},
 	];
 
-	async getAllBooks(): Promise<Book[]> {
+	async getAllBooks(): Promise<BookDto[]> {
 		return this.books;
 	}
 
-	async getBookById(id: string): Promise<Book> {
+	async getBookById(id: string): Promise<BookDto> {
 		return this.books.find((book) => book.id === id);
 	}
 
-	async createBook(book: Book): Promise<Book> {
+	async createBook(book: BookDto): Promise<BookDto> {
 		this.books.push(book);
 
 		return book;
 	}
 
-	async updateBook(id: string, book: Book): Promise<Book> {
+	async updateBook(id: string, book: BookDto): Promise<BookDto> {
 		const index = this.books.findIndex((book) => book.id === id);
 		this.books[index] = { ...this.books[index], ...book };
 		return book;

@@ -7,8 +7,9 @@ import {
 	Post,
 	Put,
 } from '@nestjs/common';
-import { Book, BookService } from './book.service';
+import { BookService } from './book.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { BookDto } from './dto/book.dto';
 
 @ApiTags('books')
 @ApiBearerAuth()
@@ -17,22 +18,22 @@ export class BookController {
 	constructor(private readonly bookService: BookService) {}
 
 	@Get()
-	getAllBooks(): Promise<Book[]> {
+	getAllBooks(): Promise<BookDto[]> {
 		return this.bookService.getAllBooks();
 	}
 
 	@Get(':id')
-	getBookById(@Param('id') id: string): Promise<Book> {
+	getBookById(@Param('id') id: string): Promise<BookDto> {
 		return this.bookService.getBookById(id);
 	}
 
 	@Post()
-	createBook(@Body() book: Book): Promise<Book> {
+	createBook(@Body() book: BookDto): Promise<BookDto> {
 		return this.bookService.createBook(book);
 	}
 
 	@Put(':id')
-	updateBook(@Param('id') id: string, @Body() book: Book): Promise<Book> {
+	updateBook(@Param('id') id: string, @Body() book: BookDto): Promise<BookDto> {
 		return this.bookService.updateBook(id, book);
 	}
 
